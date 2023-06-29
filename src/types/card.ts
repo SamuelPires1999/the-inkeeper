@@ -1,10 +1,15 @@
 export type Card = {
   id: number;
-  rarityId: number;
-  slug: string;
-  health?: number;
-  attack?: number;
-  manaCost: number;
-  image: string;
+  name: string;
   flavorText: string;
+  image: string;
+  text: string;
+  rarityId: number;
+  manaCost: number;
+  slug: string;
+  classId: number;
+  setId: number;
+  attack?: number;
+  health?: number;
+  typeId: number;
 };

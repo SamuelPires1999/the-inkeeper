@@ -18,7 +18,7 @@ export default async function handler(
       flavorText: card.flavorText.en_US,
       image: card.image.en_US,
       text: card.text.en_US,
-      rarity: card.rarityId,
+      rarityId: card.rarityId,
       manaCost: card.manaCost,
       slug: card.slug,
       classId: card.classId,

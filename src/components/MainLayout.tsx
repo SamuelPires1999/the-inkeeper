@@ -9,7 +9,9 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  Title,
 } from "@mantine/core";
+import { IconBarrel } from "@tabler/icons-react";
 
 export default function MainLayout({
   children,
@@ -37,7 +39,7 @@ export default function MainLayout({
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
         >
-          <Text>Application navbar</Text>
+          navbar here
         </Navbar>
       }
       aside={
@@ -66,8 +68,8 @@ export default function MainLayout({
                 mr="xl"
               />
             </MediaQuery>
-
-            <Text>Application header</Text>
+            <IconBarrel size={40} style={{ marginRight: "10px" }} />
+            <Title order={1}>The Inkeeper</Title>
           </div>
         </Header>
       }

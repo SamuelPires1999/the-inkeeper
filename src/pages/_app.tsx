@@ -1,10 +1,13 @@
 import MainLayout from "@/components/MainLayout";
 import "@/styles/globals.css";
 import { MantineProvider } from "@mantine/core";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const queryClient = new QueryClient();
+
   return (
     <>
       <Head>
@@ -23,9 +26,11 @@ export default function App({ Component, pageProps }: AppProps) {
           colorScheme: "dark",
         }}
       >
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
+        <QueryClientProvider client={queryClient}>
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        </QueryClientProvider>
       </MantineProvider>
     </>
   );

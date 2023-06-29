@@ -4,6 +4,7 @@ import { Card } from "@/types/card";
 import { Loader } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 
 export default function Home() {
   const results = useQuery<Card[]>({
@@ -28,7 +29,15 @@ export default function Home() {
   }
   return (
     <div>
-      <pre>{JSON.stringify(results.data, null, 2)}</pre>
+      {results.data?.map((card) => (
+        <Image
+          key={card.id}
+          src={card.image}
+          alt={`Image for ${card.name}`}
+          width={200}
+          height={200}
+        />
+      ))}
     </div>
   );
 }

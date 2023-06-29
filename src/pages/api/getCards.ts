@@ -5,11 +5,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const cardResults = await HSClient.get("/cards?pageSize=10", {
-    headers: {
-      Authorization: `Bearer ${req.cookies.accessToken}`,
-    },
-  });
+  const cardResults = await HSClient.get(
+    `/cards?pageSize=10&page=${req.query.page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${req.cookies.accessToken}`,
+      },
+    }
+  );
 
   const sanitizedCardList = cardResults.data.cards.map((card: any) => {
     return {

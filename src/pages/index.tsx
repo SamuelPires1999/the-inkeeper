@@ -1,5 +1,6 @@
+import CardInfo from "@/components/CardInfo";
 import { Card } from "@/types/card";
-import { Button, Loader } from "@mantine/core";
+import { Button, Flex, Loader } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
@@ -35,34 +36,31 @@ export default function Home() {
     <>
       <div>
         {results.data?.map((card) => (
-          <Image
-            key={card.id}
-            src={card.image}
-            alt={`Image for ${card.name}`}
-            width={200}
-            height={200}
-          />
+          <Flex direction={"column"} gap={100} key={card.id}>
+            <CardInfo card={card} />
+          </Flex>
         ))}
       </div>
-      <Button
-        onClick={() => {
-          setPage((prev) => {
-            if (prev == 1) return 1;
-            return prev - 1;
-          });
-          console.log(page);
-        }}
-      >
-        Previous 10
-      </Button>
-      <Button
-        onClick={() => {
-          setPage((prev) => prev + 1);
-          console.log(page);
-        }}
-      >
-        Next 10
-      </Button>
+      <Flex w={"100%"} justify={"center"} gap={100} mt={"lg"}>
+        <Button
+          onClick={() => {
+            setPage((prev) => {
+              if (prev == 1) return 1;
+              return prev - 1;
+            });
+          }}
+          disabled={page == 1}
+        >
+          Previous Page
+        </Button>
+        <Button
+          onClick={() => {
+            setPage((prev) => prev + 1);
+          }}
+        >
+          Next Page
+        </Button>
+      </Flex>
     </>
   );
 }

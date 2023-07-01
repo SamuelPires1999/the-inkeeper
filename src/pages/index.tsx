@@ -1,4 +1,5 @@
 import CardInfo from "@/components/CardInfo";
+import SearchCardInput from "@/components/SearchCardInput";
 import { Card } from "@/types/card";
 import { Button, Flex, Loader } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -34,13 +35,14 @@ export default function Home() {
   }
   return (
     <>
-      <div>
+      <Flex w={"100%"}>
+        <SearchCardInput />
+      </Flex>
+      <Flex direction={"column"} gap={10}>
         {results.data?.map((card) => (
-          <Flex direction={"column"} gap={100} key={card.id}>
-            <CardInfo card={card} />
-          </Flex>
+          <CardInfo key={card.id} card={card} />
         ))}
-      </div>
+      </Flex>
       <Flex w={"100%"} justify={"center"} gap={100} mt={"lg"}>
         <Button
           onClick={() => {

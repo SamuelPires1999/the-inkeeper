@@ -9,10 +9,23 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
   },
 
-  title: {
+  cardName: {
     fontWeight: 700,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     lineHeight: 1.2,
+  },
+
+  cardText: {
+    fontWeight: 400,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    lineHeight: 1.2,
+  },
+
+  subtitle: {
+    fontWeight: 300,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    lineHeight: 1.2,
+    fontStyle: "italic",
   },
 
   body: {
@@ -23,22 +36,27 @@ const useStyles = createStyles((theme) => ({
 export default function CardInfo({ card }: { card: CardType }) {
   const { classes } = useStyles();
   return (
-    <Card withBorder radius="md" p={0} className={classes.card}>
+    <Card withBorder radius="md" p={3} className={classes.card}>
       <Group noWrap spacing={0}>
         <Image
           src={card.image}
-          height={140}
-          width={140}
+          height={200}
+          width={200}
           alt={`Display Image for ${card.name}`}
         />
         <div className={classes.body}>
-          <Text transform="uppercase" weight={700} size="xs">
+          <Text
+            transform="uppercase"
+            className={classes.cardName}
+            weight={700}
+            size="lg"
+          >
             {card.name}
           </Text>
-          <Text className={classes.title} mt="xs" mb="md">
+          <Text className={classes.cardText} mt="xs" mb="md">
             {card.text}
           </Text>
-          <Text className={classes.title} mt="xs" mb="md">
+          <Text className={classes.subtitle} color="dimmed" mt="xs" mb="md">
             {card.flavorText}
           </Text>
           {/* <Group noWrap spacing="xs">

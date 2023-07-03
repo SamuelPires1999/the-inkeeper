@@ -2,14 +2,12 @@ import CardInfo from "@/components/CardInfo";
 import SearchCardInput from "@/components/SearchCardInput";
 import { Card } from "@/types/card";
 import { Button, Flex, Loader } from "@mantine/core";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
   const [page, setPage] = useState(1);
-  const queryClient = useQueryClient();
 
   const results = useQuery<Card[]>({
     queryKey: ["getCards", page],
@@ -38,12 +36,7 @@ export default function Home() {
       <Flex w={"100%"}>
         <SearchCardInput />
       </Flex>
-      <Flex direction={"column"} gap={10}>
-        {results.data?.map((card) => (
-          <CardInfo key={card.id} card={card} />
-        ))}
-      </Flex>
-      <Flex w={"100%"} justify={"center"} gap={100} mt={"lg"}>
+      <Flex w={"100%"} justify={"center"} gap={100} my={"lg"}>
         <Button
           onClick={() => {
             setPage((prev) => {
@@ -59,9 +52,15 @@ export default function Home() {
           onClick={() => {
             setPage((prev) => prev + 1);
           }}
+          loading={results.isFetching}
         >
           Next Page
         </Button>
+      </Flex>
+      <Flex direction={"column"} gap={10}>
+        {results.data?.map((card) => (
+          <CardInfo key={card.id} card={card} />
+        ))}
       </Flex>
     </>
   );

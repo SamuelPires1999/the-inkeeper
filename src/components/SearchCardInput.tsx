@@ -1,12 +1,13 @@
 import { Card } from "@/types/card";
-import { useMantineTheme, Autocomplete, Button, Flex } from "@mantine/core";
+import { Autocomplete, Button, Flex } from "@mantine/core";
 import { useDebouncedState, useDebouncedValue } from "@mantine/hooks";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { useRef } from "react";
 
 export default function SearchCardInput() {
   const [filter, setFilter] = useDebouncedState("", 300);
+  const ref = useRef<HTMLInputElement>(null);
 
   const { mutate, data } = useMutation<Card[]>({
     mutationFn: async () => {
@@ -20,6 +21,7 @@ export default function SearchCardInput() {
   return (
     <Flex w={"100%"} align={"center"} gap={4}>
       <Autocomplete
+        ref={ref}
         my={10}
         w={"100%"}
         placeholder="Search for a specific card"
@@ -27,7 +29,14 @@ export default function SearchCardInput() {
         onChange={(value) => setFilter(value)}
         data={data ? data.map((card) => card.name) : []}
       />
-      <Button onClick={() => mutate()}>Search Card</Button>
+      <Button
+        onClick={() => {
+          mutate();
+          ref.current?.focus();
+        }}
+      >
+        Search Card
+      </Button>
     </Flex>
   );
 }

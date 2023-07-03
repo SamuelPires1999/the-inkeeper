@@ -29,6 +29,7 @@ export default async function handler(
       attack: card.attack,
       health: card.health,
       typeId: card.cardTypeId,
+      cropImage: card.cropImage,
     };
   });
   return res.json(sanitizedCardList);

@@ -2,6 +2,7 @@ import { Card as CardType } from "@/types/card";
 
 import { createStyles, Card, Avatar, Text, Group } from "@mantine/core";
 import Image from "next/image";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -51,7 +52,12 @@ export default function CardInfo({ card }: { card: CardType }) {
             weight={700}
             size="lg"
           >
-            {card.name}
+            <Link
+              href={`/card/${card.slug}`}
+              style={{ textDecoration: "none", cursor: "pointer" }}
+            >
+              {card.name}
+            </Link>
           </Text>
           <Text className={classes.cardText} mt="xs" mb="md">
             {card.text}

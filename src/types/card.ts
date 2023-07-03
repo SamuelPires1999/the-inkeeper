@@ -12,4 +12,5 @@ export type Card = {
   attack?: number;
   health?: number;
   typeId: number;
+  cropImage: string;
 };

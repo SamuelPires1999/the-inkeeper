@@ -14,7 +14,6 @@ export default function SearchCardInput() {
       const response = await axios.get<Card[]>(
         `/api/searchCards?filter=${filter}`
       );
-      console.log(response.data);
       return response.data;
     },
   });

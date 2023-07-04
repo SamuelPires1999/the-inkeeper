@@ -9,7 +9,9 @@ import {
   Text,
   Title,
   createStyles,
+  useMantineTheme,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
@@ -25,6 +27,8 @@ const useStyles = createStyles((theme) => ({
 
 export default function CardInfoPage() {
   const router = useRouter();
+  const theme = useMantineTheme();
+  const matches = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
   const { classes } = useStyles();
 
   const results = useQuery<Card>({
@@ -46,7 +50,12 @@ export default function CardInfoPage() {
   }
 
   return (
-    <Flex p={3} w={"100%"} align={"center"}>
+    <Flex
+      p={3}
+      w={"100%"}
+      align={"center"}
+      direction={matches ? "row" : "column"}
+    >
       <Box w={"300px"} h={"400px"} pos={"relative"}>
         <Image
           src={results.data?.image || ""}
@@ -54,10 +63,14 @@ export default function CardInfoPage() {
           fill
         />
       </Box>
-      <Flex direction={"column"} gap={10}>
+      <Flex direction={"column"} gap={30}>
         <Title order={1}>{results.data?.name}</Title>
         <Text fs={"italic"} size={20}>
           {results.data?.flavorText}
+        </Text>
+        <Text>
+          <strong>Effect: </strong>
+          {results.data?.text}
         </Text>
         <Flex w={"100%"} justify={"start"} gap={10}>
           <Group className={classes.infoBox}>

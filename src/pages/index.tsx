@@ -1,18 +1,30 @@
 import CardInfo from "@/components/CardInfo";
-import SearchCardInput from "@/components/SearchCardInput";
 import { Button } from "@/components/ui/button";
+import { HoverCard } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/types/card";
+import { HoverCardContent, HoverCardTrigger } from "@radix-ui/react-hover-card";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const results = useQuery<Card[]>({
+  const searchResults = useMutation<Card[]>({
+    mutationFn: async () => {
+      const response = await axios.get<Card[]>(
+        `/api/searchCards?filter=${searchTerm}`
+      );
+      return response.data;
+    },
+  });
+
+  const cardList = useQuery<Card[]>({
     queryKey: ["getCards", page],
     queryFn: async () => {
       await axios.get("/api/auth/getToken");
@@ -31,7 +43,7 @@ export default function Home() {
     keepPreviousData: true,
   });
 
-  if (results.isLoading) {
+  if (cardList.isLoading) {
     return <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />;
   }
   return (
@@ -46,12 +58,30 @@ export default function Home() {
         />
         <Button
           onClick={() => {
-            console.log("The card you searched for -> " + searchTerm);
+            searchResults.mutate();
           }}
         >
           Search cards
         </Button>
       </div>
+      {searchResults.data ? (
+        <div className="flex w-full flex-col gap-2 my-4">
+          {searchResults.data.map((card) => (
+            <Link
+              href={`/card/${card.slug}`}
+              key={card.id}
+              className="border border-foreground cursor-pointer p-4 rounded-md"
+            >
+              <HoverCard>
+                <HoverCardTrigger>{card.name}</HoverCardTrigger>
+                <HoverCardContent className="w-64 h-64 relative">
+                  <Image src={card.image} alt={`Image for ${card.name}`} fill />
+                </HoverCardContent>
+              </HoverCard>
+            </Link>
+          ))}
+        </div>
+      ) : null}
       <div className="flex w-full justify-between">
         <Button
           onClick={() => {
@@ -69,14 +99,14 @@ export default function Home() {
             setPage((prev) => prev + 1);
           }}
         >
-          {results.isFetching ? (
+          {cardList.isFetching ? (
             <ReloadIcon className="h-4 w-4 animate-spin" />
           ) : (
             "Next"
           )}
         </Button>
       </div>
-      {results.data?.map((card) => (
+      {cardList.data?.map((card) => (
         <CardInfo key={card.id} card={card} />
       ))}
     </div>

@@ -1,5 +1,4 @@
 import { HSClient } from "@/lib/hearthstone-api/clients";
-import { Card } from "@/types/card";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

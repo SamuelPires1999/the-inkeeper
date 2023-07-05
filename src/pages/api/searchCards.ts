@@ -18,9 +18,9 @@ export default async function handler(
     return {
       id: card.id,
       name: card.name,
-      flavorText: card.flavorText.en_US,
-      image: card.image.en_US,
-      text: card.text.en_US,
+      flavorText: card.flavorText,
+      image: card.image,
+      text: card.text,
       rarityId: card.rarityId,
       manaCost: card.manaCost,
       slug: card.slug,

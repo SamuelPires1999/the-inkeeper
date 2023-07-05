@@ -1,6 +1,4 @@
-import MainLayout from "@/components/MainLayout";
 import "@/styles/globals.css";
-import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -18,20 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: "dark",
-        }}
-      >
-        <QueryClientProvider client={queryClient}>
-          <MainLayout>
-            <Component {...pageProps} />
-          </MainLayout>
-        </QueryClientProvider>
-      </MantineProvider>
+      <QueryClientProvider client={queryClient}>
+        <div className="container mx-auto max-w-5xl border border-red-500">
+          <Component {...pageProps} />
+        </div>
+      </QueryClientProvider>
     </>
   );
 }

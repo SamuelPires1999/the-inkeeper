@@ -1,7 +1,6 @@
 import CardInfo from "@/components/CardInfo";
 import SearchCardInput from "@/components/SearchCardInput";
 import { Card } from "@/types/card";
-import { Button, Flex, Loader } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
@@ -29,14 +28,14 @@ export default function Home() {
   });
 
   if (results.isLoading) {
-    return <Loader />;
+    return <div>Loading...</div>;
   }
   return (
     <>
-      <Flex w={"100%"}>
+      {/* <Flex w={"100%"}>
         <SearchCardInput />
-      </Flex>
-      <Flex w={"100%"} justify={"center"} gap={100} my={"lg"}>
+      </Flex> */}
+      {/* <Flex w={"100%"} justify={"center"} gap={100} my={"lg"}>
         <Button
           onClick={() => {
             setPage((prev) => {
@@ -61,7 +60,12 @@ export default function Home() {
         {results.data?.map((card) => (
           <CardInfo key={card.id} card={card} />
         ))}
-      </Flex>
+      </Flex> */}
+      <div className=" flex flex-col w-full gap-3">
+        {results.data?.map((card) => (
+          <CardInfo key={card.id} card={card} />
+        ))}
+      </div>
     </>
   );
 }

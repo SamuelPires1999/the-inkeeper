@@ -18,10 +18,11 @@ export default function CardInfo({ card }: { card: CardType }) {
       </div>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>{card.name}</CardTitle>
-          <CardDescription>{card.flavorText}</CardDescription>
+          <Link href={`/card/${card.slug}`}>
+            <CardTitle>{card.name}</CardTitle>
+          </Link>
         </CardHeader>
-        <CardContent>{card.text}</CardContent>
+        <CardContent>{card.flavorText}</CardContent>
       </Card>
     </div>
   );

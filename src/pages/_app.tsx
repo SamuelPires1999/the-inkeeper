@@ -1,3 +1,4 @@
+import NavBar from "@/components/Navbar";
 import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <QueryClientProvider client={queryClient}>
         <div className="container mx-auto max-w-5xl">
+          <NavBar />
           <Component {...pageProps} />
         </div>
       </QueryClientProvider>

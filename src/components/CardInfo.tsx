@@ -12,7 +12,7 @@ import {
 
 export default function CardInfo({ card }: { card: CardType }) {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center flex-col lg:flex-row gap-3">
       <div className="w-40 h-40 relative">
         <Image src={card.image} alt={`Image for ${card.name}`} fill />
       </div>

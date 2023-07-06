@@ -30,11 +30,15 @@ export default function CardInfoPage() {
 
   return (
     <>
-      <Button onClick={() => router.back()} variant={"ghost"}>
+      <Button
+        onClick={() => router.back()}
+        variant={"outline"}
+        className="my-5"
+      >
         <ArrowLeft className="w-4 h-4 mr-2" />
         Go back
       </Button>
-      <div className="flex flex-col lg:grid lg:grid-cols-12 h-screen items-center">
+      <div className="flex flex-col lg:grid lg:grid-cols-12 items-center">
         <div className="lg:col-span-6 flex justify-center h-fit">
           <Image
             src={results.data!.image}

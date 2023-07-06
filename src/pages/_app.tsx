@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <QueryClientProvider client={queryClient}>
-        <div className="container mx-auto max-w-5xl border border-red-500">
+        <div className="container mx-auto max-w-5xl">
           <Component {...pageProps} />
         </div>
       </QueryClientProvider>

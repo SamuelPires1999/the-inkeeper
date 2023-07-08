@@ -3,8 +3,12 @@ import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const queryClient = new QueryClient();
 
   return (
@@ -17,12 +21,14 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <QueryClientProvider client={queryClient}>
-        <div className="container mx-auto max-w-5xl">
-          <NavBar />
-          <Component {...pageProps} />
-        </div>
-      </QueryClientProvider>
+      <SessionProvider session={session}>
+        <QueryClientProvider client={queryClient}>
+          <div className="container mx-auto max-w-5xl">
+            <NavBar />
+            <Component {...pageProps} />
+          </div>
+        </QueryClientProvider>
+      </SessionProvider>
     </>
   );
 }

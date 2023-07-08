@@ -44,10 +44,14 @@ export default function Home() {
   });
 
   if (cardList.isLoading) {
-    return <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />;
+    return (
+      <div className="text-center w-full flex justify-center">
+        <ReloadIcon className="mt-10 h-10 w-10 animate-spin" />
+      </div>
+    );
   }
   return (
-    <div className="flex flex-col w-full gap-3">
+    <div className="flex flex-col w-full gap-3 pb-5">
       <div className="flex w-full my-3 gap-3 justify-center">
         <Input
           value={searchTerm}
@@ -61,7 +65,11 @@ export default function Home() {
             searchResults.mutate();
           }}
         >
-          Search cards
+          {searchResults.isLoading ? (
+            <ReloadIcon className="h-4 w-4 animate-spin" />
+          ) : (
+            "Search Cards"
+          )}
         </Button>
       </div>
       {searchResults.data ? (
@@ -84,6 +92,7 @@ export default function Home() {
       ) : null}
       <div className="flex w-full justify-between">
         <Button
+          variant={"outline"}
           onClick={() => {
             setPage((prev) => {
               if (prev == 1) return 1;
@@ -95,6 +104,7 @@ export default function Home() {
           Previous
         </Button>
         <Button
+          variant={"outline"}
           onClick={() => {
             setPage((prev) => prev + 1);
           }}

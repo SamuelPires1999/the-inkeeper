@@ -1,5 +1,6 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/types/card";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
@@ -25,7 +26,11 @@ export default function CardInfoPage() {
   });
 
   if (results.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center w-full flex justify-center">
+        <ReloadIcon className="mt-10 h-10 w-10 animate-spin" />
+      </div>
+    );
   }
 
   return (

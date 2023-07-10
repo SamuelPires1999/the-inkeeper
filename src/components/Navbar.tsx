@@ -1,8 +1,10 @@
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { useState } from "react";
 import { X } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Separator } from "./ui/separator";
+import Link from "next/link";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,13 +15,28 @@ export default function NavBar() {
       <div className="flex w-full p-3 lg:mb-10">
         <span className="text-4xl font-bold italic grow">The inkeeper</span>
         <div className="lg:flex gap-3 hidden items-center">
-          <Button variant={"outline"}>Explore decks</Button>
-          <Button variant={"outline"}>My decks</Button>
+          <Link
+            href={"/decks"}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Explore decks
+          </Link>
+          {session && (
+            <Link
+              href={"/myDecks"}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              My Decks
+            </Link>
+          )}
           <Button variant={"outline"}>Deck builder</Button>
           {status === "unauthenticated" ? (
             <Button onClick={() => signIn("google")}>Login With Google</Button>
           ) : (
-            <span>Logged as {session?.user?.name}</span>
+            <>
+              <span>Logged as {session?.user?.name}</span>
+              <Button onClick={() => signOut()}>Logout</Button>
+            </>
           )}
         </div>
         <Button
@@ -36,11 +53,33 @@ export default function NavBar() {
       </div>
       {menuOpen && (
         <div className="flex flex-col gap-3 lg:hidden">
-          <Button variant={"outline"}>Explore decks</Button>
-          <Button variant={"outline"}>My decks</Button>
+          <Link
+            href={"/decks"}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Explore decks
+          </Link>
+          {session && (
+            <Link
+              href={"/myDecks"}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              My Decks
+            </Link>
+          )}
           <Button variant={"outline"}>Deck builder</Button>
+          {status === "unauthenticated" ? (
+            <Button onClick={() => signIn("google")}>Login With Google</Button>
+          ) : (
+            <>
+              <span>Logged as {session?.user?.name}</span>
+              <Button onClick={() => signOut()}>Logout</Button>
+            </>
+          )}
         </div>
       )}
+
+      <Separator className="my-8" />
     </>
   );
 }

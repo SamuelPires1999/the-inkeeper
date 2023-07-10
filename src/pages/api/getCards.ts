@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const cardResults = await HSClient.get(
-    `/cards?pageSize=10&page=${req.query.page}`,
+    `/cards?pageSize=${req.query.ammount}&page=${req.query.page}`,
     {
       headers: {
         Authorization: `Bearer ${req.cookies.accessToken}`,

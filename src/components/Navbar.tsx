@@ -13,7 +13,9 @@ export default function NavBar() {
   return (
     <>
       <div className="flex w-full p-3 lg:mb-10">
-        <span className="text-4xl font-bold italic grow">The inkeeper</span>
+        <Link className="text-4xl font-bold italic grow" href={"/"}>
+          The inkeeper
+        </Link>
         <div className="lg:flex gap-3 hidden items-center">
           <Link
             href={"/decks"}
@@ -29,7 +31,12 @@ export default function NavBar() {
               My Decks
             </Link>
           )}
-          <Button variant={"outline"}>Deck builder</Button>
+          <Link
+            href={"/deckBuilder"}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Deck Builder
+          </Link>
           {status === "unauthenticated" ? (
             <Button onClick={() => signIn("google")}>Login With Google</Button>
           ) : (
@@ -67,7 +74,12 @@ export default function NavBar() {
               My Decks
             </Link>
           )}
-          <Button variant={"outline"}>Deck builder</Button>
+          <Link
+            href={"/deckBuilder"}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            Deck Builder
+          </Link>
           {status === "unauthenticated" ? (
             <Button onClick={() => signIn("google")}>Login With Google</Button>
           ) : (

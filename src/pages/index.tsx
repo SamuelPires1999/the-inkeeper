@@ -32,6 +32,7 @@ export default function Home() {
       const response = await axios.get(`/api/getCards`, {
         params: {
           page: page,
+          ammount: 10,
         },
       });
 

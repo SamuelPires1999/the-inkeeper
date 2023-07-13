@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useDeckStore } from "@/lib/stores/deckStore";
 import { Card } from "@/types/card";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Separator } from "@radix-ui/react-separator";
@@ -9,6 +10,7 @@ import { useState } from "react";
 
 export default function DeckBuilderPage() {
   const [page, setPage] = useState(1);
+  const deckStore = useDeckStore();
 
   const cardList = useQuery<Card[]>({
     queryKey: ["getCards", page],
@@ -69,7 +71,13 @@ export default function DeckBuilderPage() {
         </div>
         <div className="flex flex-wrap">
           {cardList.data?.map((card) => (
-            <div className="relative w-32 h-32" key={card.id}>
+            <div
+              className="relative w-32 h-32"
+              key={card.id}
+              onClick={() => {
+                deckStore.addCard(card);
+              }}
+            >
               <Image
                 className="hover:scale-150 duration-150"
                 src={card.image}
@@ -84,7 +92,16 @@ export default function DeckBuilderPage() {
       <div className="col-span-1 flex flex-col">
         <h1 className="text-xl font-bold mt-2">New Deck</h1>
         <Separator className="my-2 w-full border border-primary" />
-        <span>test</span>
+        {deckStore.deckList.map((card) => (
+          <div
+            key={card.id}
+            onClick={() => {
+              deckStore.removeCard(card);
+            }}
+          >
+            {card.name}
+          </div>
+        ))}
       </div>
     </div>
   );

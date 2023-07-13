@@ -92,16 +92,21 @@ export default function DeckBuilderPage() {
       <div className="col-span-1 flex flex-col">
         <h1 className="text-xl font-bold mt-2">New Deck</h1>
         <Separator className="my-2 w-full border border-primary" />
-        {deckStore.deckList.map((card) => (
-          <div
-            key={card.id}
-            onClick={() => {
-              deckStore.removeCard(card);
-            }}
-          >
-            {card.name}
-          </div>
-        ))}
+        <div className="flex flex-col space-y-2">
+          {deckStore.deckList.map((card) => (
+            <div
+              key={card.id}
+              onClick={() => {
+                deckStore.removeCard(card);
+              }}
+              className="p-2 rounded-sm border border-gray-600 flex space-x-1"
+            >
+              <span>{card.manaCost}</span>
+              <div className="border border-black h-full"></div>
+              <span>{card.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

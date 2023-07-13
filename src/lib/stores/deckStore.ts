@@ -26,9 +26,9 @@ export const useDeckStore = create<deckStoreProps>((set) => ({
           deckList: state.deckList,
         };
       }
-      console.log(state.deckList.indexOf(target));
+      state.deckList.splice(state.deckList.indexOf(target), 1);
       return {
-        deckList: state.deckList.splice(state.deckList.indexOf(target), 1),
+        deckList: state.deckList,
       };
     });
   },
